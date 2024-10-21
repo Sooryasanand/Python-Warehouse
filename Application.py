@@ -20,8 +20,6 @@ class Application(tk.Tk):
 
         loginView.pack(expand=True, fill='both')
 
-        #ErrorView("NoSuchUserException", "Invalid User")
-
 if __name__ == "__main__":
     app = Application()
     app.mainloop() 

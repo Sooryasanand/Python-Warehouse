@@ -1,5 +1,6 @@
 import tkinter as tk
 import Utils
+from views.Shop_view import ShopView
 
 
 class CustomerDashboardView(tk.Frame):
@@ -37,7 +38,7 @@ class CustomerDashboardView(tk.Frame):
         self.buttonsFrame.columnconfigure(0, weight=1)
         self.buttonsFrame.columnconfigure(1, weight=1)
         self.buttonsFrame.columnconfigure(2, weight=1)
-        self.shopButton = tk.Button(self.buttonsFrame, text="Shop", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", bg=Utils.python_blue)
+        self.shopButton = tk.Button(self.buttonsFrame, text="Shop", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", bg=Utils.python_blue, command=self.shopView)
         self.shopButton.grid(row=0, column=0, sticky="EW")
         self.orderHisButton = tk.Button(self.buttonsFrame, text="Order History", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", bg=Utils.python_blue)
         self.orderHisButton.grid(row=0, column=1, sticky="EW")
@@ -46,6 +47,8 @@ class CustomerDashboardView(tk.Frame):
         
         self.buttonsFrame.pack(fill='x', expand=True, side='bottom')
 
+    def shopView(self):
+        ShopView(self.root)
 
 
 
