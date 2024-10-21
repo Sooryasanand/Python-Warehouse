@@ -1,6 +1,8 @@
 import tkinter as tk
 import Utils
 import User
+from views import CustomerDashboard
+
 
 class LoginView(tk.Frame):
     def __init__(self, root):
@@ -72,10 +74,15 @@ class LoginView(tk.Frame):
     def login(self):
         usernameInput = self.userInput.get()
         passwordInput = self.passInput.get()
-        if self.controller.login(usernameInput, passwordInput):
-            print("Login Succes")
+        if self.controller is not None:
+            if self.controller.login(usernameInput, passwordInput) is not None:
+                self.close()
+                user = self.controller.login(usernameInput, passwordInput)
+                CustomerDashboard.CustomerDashboardView(User.User.get_first_name(user))
+            else:
+                print("Login Failed")
         else:
-            print("Login Failed")
+            print("Controller Failed")
 
-    def exit(self):
-        self.root.quit()
+    def close(self):
+        self.root.destroy()
