@@ -1,9 +1,8 @@
 
 class Order:
-    def __init__(self, product, quantity, cart):
+    def __init__(self, product, quantity):
         self.product = product
         self.quantity = quantity
-        self.cart = cart
     
     def get_profit(self):
         return self.product.price * self.quantity

@@ -3,7 +3,7 @@ import Utils
 from views.Login_view import LoginView
 from views.CustomerDashboard import CustomerDashboardView
 from views.Error_view import ErrorView
-from controller.LoginController import LoginController
+from controller.Controller import Controller
 
 
 class Application(tk.Tk):
@@ -15,7 +15,7 @@ class Application(tk.Tk):
         LoginWindow.geometry("600x300")
 
         loginView = LoginView(LoginWindow)
-        loginController = LoginController(loginView)
+        loginController = Controller(loginView)
         loginView.set_controller(loginController)
 
         loginView.pack(expand=True, fill='both')

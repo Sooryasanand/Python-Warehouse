@@ -1,14 +1,19 @@
 import tkinter as tk
 import Utils
 from Suppliers import Suppliers
+from views.Products_view import ProductView
 
-class ShopView():
-    def __init__(self, root=None):
-        super().__init__(root)
+class ShopView(tk.Frame):
+    def __init__(self, controller):
         self.root = Utils.Toplevel("Shop View")
-        Utils.WinIcon(self, "./image/user_icon.png")
-        self.root.geometry("600x300")
+        super().__init__(self.root)
+        Utils.WinIcon(self.root, "./image/supplier_icon.png")
+        self.root.geometry("600x650")
+        self.controller = controller
         self.pack()
+
+        self.suppliers_data = Suppliers()
+        self.suppliers_data.seed_data()
 
         #Banner Frame
         self.bannerFrame = Utils.Frame(self)
@@ -16,7 +21,7 @@ class ShopView():
         self.bannerFrame.pack()
 
         #Seprator 1
-        self.seprator1 = Utils.Separator(self).pack(fill="x", padx=10, pady=10)
+        self.seprator1 = Utils.Separator(self).pack(fill="x", pady=10)
 
         #Title Frame
         self.titleFrame = Utils.Frame(self)
@@ -30,5 +35,41 @@ class ShopView():
         self.titleFrame.pack()
 
         #Seprator 2
-        self.seprator2 = Utils.Separator(self).pack(fill="x", padx=10, pady=20)
+        self.seprator2 = Utils.Separator(self).pack(fill="x", pady=20)
+
+        #List Box
+        self.supplier_listbox = tk.Listbox(self, height=20, width=600, font="Helvetica 10")
+        self.supplier_listbox.pack(padx=10, ipady=5)
+
+        for supplier in self.suppliers_data.suppliers:
+            self.supplier_listbox.insert(tk.END, f"{supplier.name} ({supplier.region}), ({supplier.address})")
+
+        #Buttons
+        self.buttonsFrame = Utils.Frame(self)
+
+        self.loginButton = tk.Button(self.buttonsFrame, text="Shop", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", bg=Utils.python_blue, command=self.show_products)
+        self.loginButton.pack(side='left', expand=True, fill='x')
+        self.exitButton = tk.Button(self.buttonsFrame, text="Close", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", bg=Utils.python_blue, command=self.close)
+        self.exitButton.pack(side='right', expand=True, fill='x')
+        self.buttonsFrame.pack(fill='x', side='bottom', pady=(20, 0))
+
+    def view_supplier(self):
+        # Get selected supplier
+        selected_index = self.supplier_listbox.curselection()
+        if selected_index:
+            selected_supplier = self.suppliers_data.suppliers[selected_index[0]]
+            print(f"Viewing {selected_supplier.name}, located at {selected_supplier.address}.")
+        else:
+            print("No supplier selected.")
+
+    def show_products(self):
+        selected_index = self.supplier_listbox.curselection()
+        if selected_index:
+            selected_supplier = self.suppliers_data.suppliers[selected_index[0]]
+            ProductView(self.root, selected_supplier, self.controller)
+            self.close()
+        else:
+            print("Selection Error, Please select a supplier.")
         
+    def close(self):
+        self.root.destroy()

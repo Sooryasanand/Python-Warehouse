@@ -5,10 +5,10 @@ from views import CustomerDashboard
 
 
 class LoginView(tk.Frame):
-    def __init__(self, root):
+    def __init__(self, root=None):
         super().__init__(root)
-        self.root = root
-        Utils.WinIcon(self, "./image/login_icon.png")
+        self.root = root or Utils.Toplevel("Login View")
+        Utils.WinIcon(self.root, "./image/login_icon.png")
         self.controller = None
         self.pack()
         
@@ -43,7 +43,7 @@ class LoginView(tk.Frame):
         self.userInput = tk.Entry(self.inputFrame, font="Helvetica 12 bold", foreground=Utils.python_blue)
         self.userInput.grid(row=0, column=1, rowspan=1)
         self.passLabel = Utils.Label(self.inputFrame, text="Password:").grid(row=1, column=0, rowspan=3)
-        self.passInput = tk.Entry(self.inputFrame, font="Helvetica 12 bold", foreground=Utils.python_blue)
+        self.passInput = tk.Entry(self.inputFrame, font="Helvetica 12 bold", foreground=Utils.python_blue, show="*")
         self.passInput.grid(row=1, column=1, rowspan=3)
 
         self.userInput.bind("<KeyRelease>", self.valid_userInput)
@@ -56,7 +56,7 @@ class LoginView(tk.Frame):
 
         self.loginButton = tk.Button(self.buttonsFrame, text="Login", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", command=self.login)
         self.loginButton.pack(side='left', expand=True, fill='x')
-        self.loginButton.config(state="disabled", bg=Utils.python_blue_inactive)
+        self.loginButton.config(state="disabled", bg=Utils.blue_disable)
         self.exitButton = tk.Button(self.buttonsFrame, text="Exit", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", command=exit)
         self.exitButton.pack(side='right', expand=True, fill='x')
         self.exitButton.config(bg=Utils.python_blue)
@@ -66,7 +66,7 @@ class LoginView(tk.Frame):
         if self.userInput.get() and self.passInput.get():
             self.loginButton.config(state="normal", bg=Utils.python_blue)
         else:
-            self.loginButton.config(state="disabled", bg=Utils.python_blue_inactive)
+            self.loginButton.config(state="disabled", bg=Utils.blue_disable)
 
     def set_controller(self, controller):
         self.controller = controller
@@ -78,7 +78,7 @@ class LoginView(tk.Frame):
             if self.controller.login(usernameInput, passwordInput) is not None:
                 self.close()
                 user = self.controller.login(usernameInput, passwordInput)
-                CustomerDashboard.CustomerDashboardView(User.User.get_first_name(user))
+                CustomerDashboard.CustomerDashboardView(User.User.get_first_name(user), self.controller)
             else:
                 print("Login Failed")
         else:

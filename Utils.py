@@ -1,17 +1,16 @@
 import tkinter as tk
 from tkinter import ttk
 
-from PIL import Image as PImage
-from PIL import ImageTk
+from PIL import Image as PImage, ImageTk
 
 python_blue = "#168FC1"
-python_blue_inactive = "#216583"
+blue_disable = "#025691"
 width_ = 600
 image_height = 150
 
 
 def disable(root, text, callback=None):
-    return tk.Button(root, text=text, command=callback, background=python_blue_inactive, padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white")
+    return tk.Button(root, text=text, command=callback, background=blue_disable, padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white")
 
 
 def Toplevel(title):
@@ -49,6 +48,6 @@ def Image(root, path):
     lbl.photo = img
     return lbl
 
-def WinIcon(self, path):
-    icon_img = ImageTk.PhotoImage(PImage.open(path))
-    self.root.wm_iconphoto(False, icon_img)
+def WinIcon(window, icon_path):
+    icon_img = ImageTk.PhotoImage(PImage.open(icon_path))
+    window.wm_iconphoto(False, icon_img)

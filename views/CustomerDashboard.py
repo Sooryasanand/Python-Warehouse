@@ -4,11 +4,12 @@ from views.Shop_view import ShopView
 
 
 class CustomerDashboardView(tk.Frame):
-    def __init__(self, username):
+    def __init__(self, username, controller):
         self.root = Utils.Toplevel("Customer Dashboard")
         super().__init__(self.root)
-        Utils.WinIcon(self, "./image/user_icon.png")
+        Utils.WinIcon(self.root, "./image/user_icon.png")
         self.root.geometry("600x300")
+        self.controller = controller
         self.pack()
 
         #Banner Frame
@@ -17,7 +18,7 @@ class CustomerDashboardView(tk.Frame):
         self.bannerFrame.pack()
 
         #Seprator 1
-        self.seprator1 = Utils.Separator(self).pack(fill="x", padx=10, pady=10)
+        self.seprator1 = Utils.Separator(self).pack(fill="x", pady=10)
 
         #Title Frame
         self.titleFrame = Utils.Frame(self)
@@ -31,7 +32,7 @@ class CustomerDashboardView(tk.Frame):
         self.titleFrame.pack()
 
         #Seprator 2
-        self.seprator2 = Utils.Separator(self).pack(fill="x", padx=10, pady=30)
+        self.seprator2 = Utils.Separator(self).pack(fill="x", pady=30)
 
         #Buttons Frame
         self.buttonsFrame = Utils.Frame(self)
@@ -48,7 +49,7 @@ class CustomerDashboardView(tk.Frame):
         self.buttonsFrame.pack(fill='x', expand=True, side='bottom')
 
     def shopView(self):
-        ShopView(self.root)
+        ShopView(self.controller)
 
 
 

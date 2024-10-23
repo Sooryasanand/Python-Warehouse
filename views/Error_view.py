@@ -10,14 +10,14 @@ class ErrorView(tk.Frame):
         self.root = Utils.Toplevel("Error")
         super().__init__(self.root)
 
-        Utils.WinIcon(self, "./image/error_icon.png")
+        #Utils.WinIcon(self, "./image/error_icon.png")
         self.root.geometry("500x375")
         self.pack()
 
         #Image Frame
-        self.imageFrame = Utils.Frame(self)
-        self.image_banner = Utils.Image(self.imageFrame, "./image/error.png").pack()
-        self.imageFrame.pack()
+        #self.imageFrame = Utils.Frame(self)
+        #self.image_banner = Utils.Image(self.imageFrame, "./image/error.png").pack()
+        #self.imageFrame.pack()
 
         #Seprator 1
         self.seprator1 = Utils.Separator(self).pack(fill="x", padx=10, pady=10)
