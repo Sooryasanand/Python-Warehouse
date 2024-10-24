@@ -1,7 +1,9 @@
 import tkinter as tk
 import Utils
+import Organisation
 import User
 from views import CustomerDashboard
+from views.Manager import ManagerDashboard
 
 
 class LoginView(tk.Frame):
@@ -77,8 +79,7 @@ class LoginView(tk.Frame):
         if self.controller is not None:
             if self.controller.login(usernameInput, passwordInput) is not None:
                 self.close()
-                user = self.controller.login(usernameInput, passwordInput)
-                CustomerDashboard.CustomerDashboardView(User.User.get_first_name(user), self.controller)
+                self.controller.login(usernameInput, passwordInput)
             else:
                 print("Login Failed")
         else:

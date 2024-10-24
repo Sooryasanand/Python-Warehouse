@@ -10,6 +10,3 @@ class Products:
     
     def remove_product(self, product):
         self.products.remove(product)
-
-    def remove_product(self, product):
-        self.products.remove(product)

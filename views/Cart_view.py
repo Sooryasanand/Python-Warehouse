@@ -3,11 +3,12 @@ from tkinter import ttk
 import Utils
 from views.add_view import AddView
 from views.ViewCart_view import ViewCart
+from views.Products_view import ProductView
 import Product
-import Supplier
+import Order
 
 class CartView(tk.Frame):
-    def __init__(self, supplier, controller, products_view):
+    def __init__(self, supplier, controller, products_view, refresh_treeview):
         self.root = Utils.Toplevel("Cart")
         super().__init__(self.root)
         Utils.WinIcon(self.root, "./image/cart_icon.png")
@@ -16,8 +17,10 @@ class CartView(tk.Frame):
         self.controller = controller
         self.supplier = supplier
         self.cart = self.controller.makeCart(self.supplier)
+        self.refresh_treeview = refresh_treeview
+        self.products_view = products_view
+        self.controller.setCart(self)
 
-        self.product_view = products_view
 
         #Title Banner
         self.bannerFrame = tk.Frame(self)
@@ -71,11 +74,11 @@ class CartView(tk.Frame):
         self.addButton = tk.Button(self.buttonsFrame, text="Add", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", bg=Utils.python_blue, command=self.add_Button)
         self.addButton.pack(side='left', expand=True, fill='x')
         self.addButton.config(state="disabled", bg=Utils.blue_disable)
-        self.viewButton = tk.Button(self.buttonsFrame, text="View", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", bg=Utils.python_blue, command=lambda: self.viewCart())
+        self.viewButton = tk.Button(self.buttonsFrame, text="View", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", bg=Utils.python_blue, command=self.viewCart)
         self.viewButton.pack(side='right', expand=True, fill='x')
-        self.cancelButton = tk.Button(self.buttonsFrame, text="Cancel", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", bg=Utils.python_blue)
+        self.cancelButton = tk.Button(self.buttonsFrame, text="Cancel", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", bg=Utils.python_blue, command=self.close)
         self.cancelButton.pack(side='left', expand=True, fill='x')
-        self.checkoutButton = tk.Button(self.buttonsFrame, text="Checkout", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", bg=Utils.python_blue, command=self.checkout())
+        self.checkoutButton = tk.Button(self.buttonsFrame, text="Checkout", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", bg=Utils.python_blue, command=self.checkout)
         self.checkoutButton.pack(side='right', expand=True, fill='x')
         self.buttonsFrame.pack(fill='x', side='bottom', pady=30)
     
@@ -103,10 +106,16 @@ class CartView(tk.Frame):
     def viewCart(self):
         ViewCart(self.supplier, self.controller, self.cart)
 
+    def close(self):
+        self.root.destroy()
+
     def checkout(self):
-        total_cost = self.cart.get_total_cost()
-        
-        self.cart.orders.clear()
-        self.product_view.refresh_treeview()
-        self.tree.delete(*self.tree.get_children()) 
+        self.controller.addOrderHistory(self.cart)
+        self.supplier.process_cart(self.cart)
+        if self.refresh_treeview:
+            print("refresh treeview is set and valid")
+            self.refresh_treeview()
+        self.tree.delete(*self.tree.get_children())
+        self.root.destroy()
+         
     

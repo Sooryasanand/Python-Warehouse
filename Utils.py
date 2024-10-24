@@ -17,7 +17,7 @@ def Toplevel(title):
     tl = tk.Toplevel(width=width_)
     tl.resizable(False, False)
     tl.title(title)
-    #tl.protocol("WM_DELETE_WINDOW", disable)
+    tl.protocol("WM_DELETE_WINDOW", disable)
     return tl
 
 

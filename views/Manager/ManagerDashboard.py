@@ -1,12 +1,12 @@
 import tkinter as tk
 import Utils
-from views.Shop_view import ShopView
+from views.Manager.ManageSupplier_View import ManageSupplierView
 from views.OrderHistory_view import OrderHistory
 
 
-class CustomerDashboardView(tk.Frame):
+class ManagerDashboardView(tk.Frame):
     def __init__(self, username, controller):
-        self.root = Utils.Toplevel("Customer Dashboard")
+        self.root = Utils.Toplevel("Manager Dashboard")
         super().__init__(self.root)
         Utils.WinIcon(self.root, "./image/user_icon.png")
         self.root.geometry("600x300")
@@ -28,7 +28,7 @@ class CustomerDashboardView(tk.Frame):
         self.titleFrame.grid_rowconfigure(1, weight=1)  # Center column
         self.titleFrame.grid_rowconfigure(2, weight=1)  # Bottom empty space
 
-        self.title_label = tk.Label(self.titleFrame, text=f"Welcome to Customer Dashboard {username}", font="Helvetica 15 bold", fg=Utils.python_blue)
+        self.title_label = tk.Label(self.titleFrame, text=f"Welcome to Manager Dashboard {username}", font="Helvetica 15 bold", fg=Utils.python_blue)
         self.title_label.grid(row=0, column=0, rowspan=2, sticky="nsew")
         self.titleFrame.pack()
 
@@ -40,7 +40,7 @@ class CustomerDashboardView(tk.Frame):
         self.buttonsFrame.columnconfigure(0, weight=1)
         self.buttonsFrame.columnconfigure(1, weight=1)
         self.buttonsFrame.columnconfigure(2, weight=1)
-        self.shopButton = tk.Button(self.buttonsFrame, text="Shop", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", bg=Utils.python_blue, command=self.shopView)
+        self.shopButton = tk.Button(self.buttonsFrame, text="Manage", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", bg=Utils.python_blue, command=self.ManageView)
         self.shopButton.grid(row=0, column=0, sticky="EW")
         self.orderHisButton = tk.Button(self.buttonsFrame, text="Order History", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", bg=Utils.python_blue, command=self.orderHistoryView)
         self.orderHisButton.grid(row=0, column=1, sticky="EW")
@@ -49,8 +49,8 @@ class CustomerDashboardView(tk.Frame):
         
         self.buttonsFrame.pack(fill='x', expand=True, side='bottom')
 
-    def shopView(self):
-        ShopView(self.controller)
+    def ManageView(self):
+        ManageSupplierView(self.controller)
 
     def orderHistoryView(self):
         OrderHistory(self.controller)

@@ -66,4 +66,5 @@ class AddView(tk.Frame):
         except InvalidQuantityException:
             ErrorView("InvalidQuantityException", "Invalid Quantity")
 
+
     

@@ -1,11 +1,11 @@
 import tkinter as tk
 import Utils
 from Suppliers import Suppliers
-from views.Products_view import ProductView
+from views.Manager.ManagerProducts_view import ManagerProducts
 
-class ShopView(tk.Frame):
+class ManageSupplierView(tk.Frame):
     def __init__(self, controller):
-        self.root = Utils.Toplevel("Supplier List")
+        self.root = Utils.Toplevel("Supllier List")
         super().__init__(self.root)
         Utils.WinIcon(self.root, "./image/supplier_icon.png")
         self.root.geometry("600x650")
@@ -41,12 +41,12 @@ class ShopView(tk.Frame):
         self.supplier_listbox = tk.Listbox(self, height=20, width=600, font="Helvetica 10")
         self.supplier_listbox.pack(padx=10, ipady=5)
 
-        for supplier in self.suppliers_data.suppliers:
+        for supplier in self.controller.getManagerSupplier():
             self.supplier_listbox.insert(tk.END, f"{supplier.name} ({supplier.region}), ({supplier.address})")
+
 
         #Buttons
         self.buttonsFrame = Utils.Frame(self)
-
         self.loginButton = tk.Button(self.buttonsFrame, text="Shop", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", bg=Utils.python_blue, command=self.show_products)
         self.loginButton.pack(side='left', expand=True, fill='x')
         self.exitButton = tk.Button(self.buttonsFrame, text="Close", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", bg=Utils.python_blue, command=self.close)
@@ -57,7 +57,7 @@ class ShopView(tk.Frame):
         # Get selected supplier
         selected_index = self.supplier_listbox.curselection()
         if selected_index:
-            selected_supplier = self.suppliers_data.suppliers[selected_index[0]]
+            selected_supplier = self.controller.getManagerSupplier()[selected_index[0]]
             print(f"Viewing {selected_supplier.name}, located at {selected_supplier.address}.")
         else:
             print("No supplier selected.")
@@ -65,8 +65,8 @@ class ShopView(tk.Frame):
     def show_products(self):
         selected_index = self.supplier_listbox.curselection()
         if selected_index:
-            selected_supplier = self.suppliers_data.suppliers[selected_index[0]]
-            ProductView(self.root, selected_supplier, self.controller)
+            selected_supplier = self.controller.getManagerSupplier()[selected_index[0]]
+            ManagerProducts(self.root, selected_supplier, self.controller)
             self.close()
         else:
             print("Selection Error, Please select a supplier.")

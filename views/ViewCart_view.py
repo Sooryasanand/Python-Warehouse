@@ -40,20 +40,17 @@ class ViewCart(tk.Frame):
                        background=[("selected", Utils.python_blue)],
                        foreground=[("selected", "white")])
 
-        columns = ('Name', 'Price', 'Stock')
+        columns = ('Name', 'Stock')
         self.tree = ttk.Treeview(self, columns=columns, show='headings', height=10, selectmode='extended')
         
         self.tree.heading('Name', text='Name')
-        self.tree.heading('Price', text='Price')
         self.tree.heading('Stock', text='Stock')
 
         self.tree.column('Name', width=250)
-        self.tree.column('Price', width=100)
         self.tree.column('Stock', width=100)
 
         for order in cart.orders:
-            total_price = order.quantity * order.product.price
-            self.tree.insert('', tk.END, values=(order.product.name, order.quantity, f"${total_price:.2f}"))
+            self.tree.insert('', tk.END, values=(order.product.name, order.quantity))
 
         self.tree.bind("<<TreeviewSelect>>", self.valid_userInput)
 
@@ -89,9 +86,7 @@ class ViewCart(tk.Frame):
                     break
 
             if order_to_remove:
-                # Remove from the cart
                 self.cart.remove_order(order_to_remove)
-                # Remove from Treeview
                 self.tree.delete(item)
 
 
