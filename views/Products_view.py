@@ -71,12 +71,12 @@ class ProductView(tk.Frame):
             self.tree.delete(item)
 
         for product in self.supplier.products.products:
-            print(product)
+            print(f"Product: {product.name}, Stock: {product.stock}")  # Ensure correct stock is displayed
             if product.stock > 0:
                 self.tree.insert('', tk.END, values=(product.name, f"${product.price:.2f}", product.stock))
 
     def refresh_treeview(self):
-        print("refreshing.....")
+        print("Refreshing.... ")
         self.populate_treeview()
 
     def order_button(self):

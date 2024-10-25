@@ -19,7 +19,6 @@ class CartView(tk.Frame):
         self.cart = self.controller.makeCart(self.supplier)
         self.refresh_treeview = refresh_treeview
         self.products_view = products_view
-        self.controller.setCart(self)
 
 
         #Title Banner
@@ -110,11 +109,13 @@ class CartView(tk.Frame):
         self.root.destroy()
 
     def checkout(self):
+        print("Checkout started")
         self.controller.addOrderHistory(self.cart)
         self.supplier.process_cart(self.cart)
         if self.refresh_treeview:
-            print("refresh treeview is set and valid")
+            print("Going to refresh treeview")
             self.refresh_treeview()
+            print(self.cart)
         self.tree.delete(*self.tree.get_children())
         self.root.destroy()
          
