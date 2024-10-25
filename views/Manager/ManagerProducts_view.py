@@ -8,7 +8,7 @@ class ManagerProducts(tk.Frame):
         self.root = Utils.Toplevel(f"Supplier: {supplier.name}")
         super().__init__(self.root)
         Utils.WinIcon(self.root, "./image/supplier_icon.png")
-        self.root.geometry("600x750")
+        self.root.geometry("600x685")
         self.controller = controller
         self.cart = cart
         self.supplier = supplier
@@ -74,7 +74,7 @@ class ManagerProducts(tk.Frame):
         self.orderButton.pack(side='left', expand=True, fill='x')
         self.closeButton = tk.Button(self.buttonsFrame, text="Close", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", bg=Utils.python_blue, command=self.close)
         self.closeButton.pack(side='right', expand=True, fill='x')
-        self.buttonsFrame.pack(fill='x', side='bottom', pady=30)
+        self.buttonsFrame.pack(fill='x', side='bottom', pady=[30, 0])
 
     def disable_select(self, event):
         return "break"
@@ -108,7 +108,7 @@ class ManagerProducts(tk.Frame):
 
     def order_button(self):
         from views.Cart_view import CartView
-        CartView(self.supplier, self.controller, self)
+        CartView(self.supplier, self.controller, self, self.refresh_treeview)
 
     def close(self):
         self.root.destroy()

@@ -10,7 +10,7 @@ class ViewCart(tk.Frame):
         self.root = Utils.Toplevel("View Cart")
         super().__init__(self.root)
         Utils.WinIcon(self.root, "./image/cart_icon.png")
-        self.root.geometry("600x650")
+        self.root.geometry("600x600")
         self.pack()
         self.controller = controller
         self.cart = cart
@@ -67,7 +67,7 @@ class ViewCart(tk.Frame):
         self.removeButton.config(state="disabled", bg=Utils.blue_disable)
         self.closeButton = tk.Button(self.buttonsFrame, text="Cancel", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", bg=Utils.python_blue, command=self.close)
         self.closeButton.pack(side='right', expand=True, fill='x')
-        self.buttonsFrame.pack(fill='x', side='bottom', pady=30)
+        self.buttonsFrame.pack(fill='x', side='bottom', pady=[32, 0])
 
     def valid_userInput(self, _):
         if len(self.tree.selection()):

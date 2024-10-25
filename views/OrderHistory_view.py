@@ -42,7 +42,7 @@ class OrderHistory(tk.Frame):
         self.buttonsFrame = Utils.Frame(self)
         self.addButton = tk.Button(self.buttonsFrame, text="Close", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", bg=Utils.python_blue, command=self.close)
         self.addButton.pack(side='left', expand=True, fill='x')
-        self.buttonsFrame.pack(fill='x', side='bottom', pady=(20, 0))
+        self.buttonsFrame.pack(fill='x', side='bottom', pady=(35, 0))
 
     def update_treeview(self):
         for cart in self.controller.getOrderHistory():

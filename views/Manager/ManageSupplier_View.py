@@ -8,7 +8,7 @@ class ManageSupplierView(tk.Frame):
         self.root = Utils.Toplevel("Supllier List")
         super().__init__(self.root)
         Utils.WinIcon(self.root, "./image/supplier_icon.png")
-        self.root.geometry("600x650")
+        self.root.geometry("600x660")
         self.controller = controller
         self.pack()
 
@@ -51,7 +51,7 @@ class ManageSupplierView(tk.Frame):
         self.loginButton.pack(side='left', expand=True, fill='x')
         self.exitButton = tk.Button(self.buttonsFrame, text="Close", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", bg=Utils.python_blue, command=self.close)
         self.exitButton.pack(side='right', expand=True, fill='x')
-        self.buttonsFrame.pack(fill='x', side='bottom', pady=(20, 0))
+        self.buttonsFrame.pack(fill='x', side='bottom', pady=(27, 0))
 
     def view_supplier(self):
         # Get selected supplier

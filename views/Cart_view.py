@@ -12,7 +12,7 @@ class CartView(tk.Frame):
         self.root = Utils.Toplevel("Cart")
         super().__init__(self.root)
         Utils.WinIcon(self.root, "./image/cart_icon.png")
-        self.root.geometry("600x650")
+        self.root.geometry("600x600")
         self.pack()
         self.controller = controller
         self.supplier = supplier
@@ -79,7 +79,7 @@ class CartView(tk.Frame):
         self.cancelButton.pack(side='left', expand=True, fill='x')
         self.checkoutButton = tk.Button(self.buttonsFrame, text="Checkout", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", bg=Utils.python_blue, command=self.checkout)
         self.checkoutButton.pack(side='right', expand=True, fill='x')
-        self.buttonsFrame.pack(fill='x', side='bottom', pady=30)
+        self.buttonsFrame.pack(fill='x', side='bottom', pady=[32, 0])
     
     def valid_userInput(self, _):
         if len(self.tree.selection()):

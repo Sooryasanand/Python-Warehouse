@@ -8,7 +8,7 @@ class Managing(tk.Frame):
         self.root = Utils.Toplevel(f"Managing")
         super().__init__(self.root)
         Utils.WinIcon(self.root, "./image/supplier_icon.png")
-        self.root.geometry("600x750")
+        self.root.geometry("600x536")
         self.controller = controller
         self.cart = cart
         self.supplier = supplier
@@ -52,7 +52,7 @@ class Managing(tk.Frame):
         self.delistButton.pack(side='left', expand=True, fill='x')
         self.closeButton = tk.Button(self.buttonsFrame, text="Close", padx=0, relief=tk.FLAT, font="Arial 11 bold", foreground="white", cursor="hand2", bg=Utils.python_blue, command=self.close)
         self.closeButton.pack(side='right', expand=True, fill='x')
-        self.buttonsFrame.pack(fill='x', side='bottom', pady=30)
+        self.buttonsFrame.pack(fill='x', side='bottom', pady=[30, 0])
 
 
 

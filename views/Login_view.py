@@ -77,9 +77,9 @@ class LoginView(tk.Frame):
         usernameInput = self.userInput.get()
         passwordInput = self.passInput.get()
         if self.controller is not None:
-            if self.controller.login(usernameInput, passwordInput) is not None:
+            user = self.controller.login(usernameInput, passwordInput)
+            if user is not None:
                 self.close()
-                self.controller.login(usernameInput, passwordInput)
             else:
                 print("Login Failed")
         else:
